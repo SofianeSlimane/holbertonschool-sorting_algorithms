@@ -21,8 +21,10 @@ void selection_sort(int *array, size_t size)
                         int temp = array[i];
                         array[i] = array[min_idx];
                         array[min_idx] = temp;
-
-                        printf("Swap: array[%lu] = %d, array[%lu] = %d\n", i, array[i], min_idx, array[min_idx]);
-                }
-        }
+			print_array(array, size);
+		}
+		i++;
+		j++;
+		min_idx++;		
+	}
 }
