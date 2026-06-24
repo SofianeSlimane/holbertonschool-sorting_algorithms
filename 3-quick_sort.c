@@ -10,27 +10,10 @@ void quick_sort(int *array, size_t size)
 {
 	if (array == NULL || size < 2)
 		return;
-	else if (size == 2)
-	{
-		sort_two_elements(array);
-		return;
-	}
+
 	sort_main(array, 0, size - 1, size);
 }
-/**
- * sort_two_elements - sort two elements
- * @array: array
- */
-void sort_two_elements(int *array)
-{
-	if (array[0] > array[1])
-	{
-		int temp = array[0];
 
-		array[0] = array[1];
-		array[1] = temp;
-	}
-}
 
 /**
  * partition - partition
