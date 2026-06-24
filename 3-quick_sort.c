@@ -1,75 +1,83 @@
 #include "sort.h"
 
-/**
- * quick_sort - Function that sorts array of int w/ quicksort algorithm
- * @array: THe integer array
- * @size: Array size
- *
- * Return: None
- */
 
+/**
+ * quick_sort - quick sort
+ * @array: array
+ * @size: size
+ */
 void quick_sort(int *array, size_t size)
 {
 	if (array == NULL || size < 2)
 		return;
-
-	lomuto_sort(array, size, 0, size - 1);
-}
-
-/**
- * lomuto_sort - Lomuto partition scheme
- * @array: THe arrayof integers
- * @size: Array size
- * @left: The starting index of the array partition to order
- * @right: The ending index of the array partition to order
- *
- * Return: None
- */
-void lomuto_sort(int *array, size_t size, int left, int right)
-{
-	int *pivot, above, below;
-	int part;
-
-	if (right - left > 0)
+	else if (size == 2)
 	{
-		pivot = array + right;
-		for (above = below = left; below < right; below++)
-		{
-			if (array[below] < *pivot)
-			{
-				if (above < below)
-				{
-					swap(array + below, array + above);
-					print_array(array, size);
-				}
-				above++;
-			}
-		}
+		sort_two_elements(array);
+		return;
+	}
+	sort_main(array, 0, size - 1, size);
+}
+/**
+ * sort_two_elements - sort two elements
+ * @array: array
+ */
+void sort_two_elements(int *array)
+{
+	if (array[0] > array[1])
+	{
+		int temp = array[0];
 
-		if (array[above] > *pivot)
-		{
-			swap(array + above, pivot);
-			print_array(array, size);
-		}
-
-		part = above;
-		lomuto_sort(array, size, left, part - 1);
-		lomuto_sort(array, size, part + 1, right);
+		array[0] = array[1];
+		array[1] = temp;
 	}
 }
 
 /**
- * swap - Function to swap position of 2 elements in list
- * @first: Fist element
- * @second: Second element
- *
- * Return: None
+ * partition - partition
+ * @array: array
+ * @lo: lowest index
+ * @hi: highest index
+ * Return: index of pivot
  */
-void swap(int *first, int *second)
+int partition(int *array, int lo, int hi)
 {
-	int tmp_elem;
+	int i, pivot = array[hi], temp_index = lo, temp;
 
-	tmp_elem = *first;
-	*first = *second;
-	*second = tmp_elem;
+	for (i = lo; i < hi; i++)
+	{
+		if (array[i] <= pivot)
+		{
+			temp = array[i];
+			array[i] = array[temp_index];
+			array[temp_index] = temp;
+			temp_index++;
+
+		}
+	}
+	temp = array[temp_index];
+	array[temp_index] = array[hi];
+	array[hi] = temp;
+
+	return (temp_index);
+}
+/**
+ * sort_main - main entry
+ * @array: array
+ * @lo: lowest index
+ * @hi: highest index
+ * @fixed_size: fi
+ */
+void sort_main(int *array, int lo, int hi, int fixed_size)
+{
+	int p;
+
+	if (lo >= hi)
+	{
+		print_array(array, fixed_size);
+		return;
+	}
+
+	p = partition(array, lo, hi);
+	sort_main(array, lo, p - 1, fixed_size);
+	sort_main(array, p + 1, hi, fixed_size);
 }
