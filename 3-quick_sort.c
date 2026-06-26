@@ -22,7 +22,7 @@ void quick_sort(int *array, size_t size)
  * @hi: highest index
  * Return: index of pivot
  */
-int partition(int *array, int lo, int hi)
+int partition(int *array, int lo, int hi, int fixed_size)
 {
 	int i, pivot = array[hi], boundary = lo, temp;
 
@@ -34,7 +34,7 @@ int partition(int *array, int lo, int hi)
 			array[i] = array[boundary];
 			array[boundary] = temp;
 			if (i != boundary)
-				print_array(array, 10);
+				print_array(array, fixed_size);
 			boundary++;
 		}
 	}
@@ -42,7 +42,7 @@ int partition(int *array, int lo, int hi)
 	array[boundary] = array[hi];
 	array[hi] = temp;
 	if (boundary != i)
-		print_array(array, 10);
+		print_array(array, fixed_size);
 
 	return (boundary);
 }
@@ -61,7 +61,7 @@ void sort_main(int *array, int lo, int hi, int fixed_size)
 	{
 		return;
 	}
-	p = partition(array, lo, hi);
+	p = partition(array, lo, hi, fixed_size);
 	sort_main(array, lo, p - 1, fixed_size);
 	sort_main(array, p + 1, hi, fixed_size);
 }
