@@ -20,6 +20,7 @@ void quick_sort(int *array, size_t size)
  * @array: array
  * @lo: lowest index
  * @hi: highest index
+ * @fixed_size: size of array
  * Return: index of pivot
  */
 int partition(int *array, int lo, int hi, int fixed_size)
