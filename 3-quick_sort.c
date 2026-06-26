@@ -24,24 +24,27 @@ void quick_sort(int *array, size_t size)
  */
 int partition(int *array, int lo, int hi)
 {
-	int i, pivot = array[hi], temp_index = lo, temp;
+	int i, pivot = array[hi], boundary = lo, temp;
 
 	for (i = lo; i < hi; i++)
 	{
 		if (array[i] <= pivot)
 		{
 			temp = array[i];
-			array[i] = array[temp_index];
-			array[temp_index] = temp;
-			temp_index++;
-
+			array[i] = array[boundary];
+			array[boundary] = temp;
+			if (i != boundary)
+				print_array(array, 10);
+			boundary++;
 		}
 	}
-	temp = array[temp_index];
-	array[temp_index] = array[hi];
+	temp = array[boundary];
+	array[boundary] = array[hi];
 	array[hi] = temp;
+	if (boundary != i)
+		print_array(array, 10);
 
-	return (temp_index);
+	return (boundary);
 }
 /**
  * sort_main - main entry
@@ -56,10 +59,8 @@ void sort_main(int *array, int lo, int hi, int fixed_size)
 
 	if (lo >= hi)
 	{
-		print_array(array, fixed_size);
 		return;
 	}
-
 	p = partition(array, lo, hi);
 	sort_main(array, lo, p - 1, fixed_size);
 	sort_main(array, p + 1, hi, fixed_size);
